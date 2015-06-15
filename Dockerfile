@@ -6,6 +6,13 @@ ENV MOSQUITTO_VERSION 1.4.2
 # import "Roger A. Light <roger@atchoo.org>"'s signature
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B3E717B7
 
+RUN runDeps=' \
+    libssl1.0.0 \
+  ' \
+  && apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $runDeps \
+  && rm -rf /var/lib/apt/lists/*
+
 # Download and build
 RUN buildDeps=' \
     curl \
